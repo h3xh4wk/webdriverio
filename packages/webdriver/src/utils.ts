@@ -227,7 +227,8 @@ export class CustomRequestError extends Error {
     constructor(body: WebDriverResponse) {
         const errorObj = body.value || body
         const name = errorObj.name || 'WebDriver Error'
-        super(name + ': ' +(errorObj.message || errorObj.class || 'unknown error'))
+        const message = errorObj.message || errorObj.class || 'unknown error'
+        super(`${name}: ${message}`)
         if (errorObj.error) {
             this.name = errorObj.error
         } else if (errorObj.message && errorObj.message.includes('stale element reference')) {
